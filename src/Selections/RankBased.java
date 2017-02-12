@@ -66,8 +66,6 @@ public class RankBased extends Selections{
         return returnSolution;
     }
 
-
-
     //for example, with 20, we have 8, 6, 3, 1, ,1, 1 for each rank so the number is 6
     public static int getNumberOfRankNeeded(int populationLength) {
         slotDistribution = new ArrayList<Integer>();

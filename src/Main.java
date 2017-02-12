@@ -19,7 +19,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         long averageGen = 0;
         for (int i = 0; i < loopCount; i ++) {
-            WorkingGA myWorkingGA = new WorkingGA(20, 1000, method);
+            WorkingGA myWorkingGA = new WorkingGA(40, 1000, method);
             averageGen += myWorkingGA.getTotalGeneration();
         }
         long endTime = System.currentTimeMillis();
