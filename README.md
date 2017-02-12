@@ -27,25 +27,43 @@ Since we know the minimize point of f(x1, x2) is at (3,2) at f(x) = 0, it is eas
 
 
 ###Roulette Wheel Selection
+
 *Population 10 - Average loop count 211 - execution time 41537
+
 *Population 20 - Average loop count 90 - execution time 35390
+
 *Population 40 - Average loop count 41 - execution time 29176
+
 *Population 60 - Average loop count 28 - execution time 29547
 
 
 ###Tournament Selection
+
 *Population 10 - Size = 15% (3/20)- Average loop count 205 - execution time 39003
+
 *Population 20 - Size = 15% (/20)- Average loop count 83 - execution time 29451
+
 *Population 20 - Size = 20% (4/20)- Average loop count 82 - execution time 32353 
+
 *Population 20 - Size = 25% (5/20)- Average loop count 83 - execution time 30860
+
 *Population 40 - size = 20% (4/20)- Average loop count 41 - execution time 30091
+
 *Population 40 - size = 15% (3/20)- Average loop count 42 - execution time 30523
+
 *Population 60 - size = 15% (3/20)- Average loop count 28 - execution time 33022
 
 ###Rank Based Selection
+
 *Population 10 - Rank distribution: 30%, 25%, 20%, 15%, 9%, 1% - Average loop count 200 - execution time 39154
+
 *Population 20 - Rank distribution: 40%, 30%, 18%, 11%, 7%, 4% - Average loop count 84 - execution time 32357
+
 *Population 20 - Rank distribution: 50%, 30%, 12%, 8% - Average loop count 80 - execution time 30256
+
 *Population 40 - Rank distribution: 40%, 30%, 18%, 11%, 7%, 4% - Average loop count 38 - execution time 27662
+
 *Population 40 - Rank distribution: 30%, 25%, 20%, 15%, 9%, 1% - Average loop count 40 - execution time 29371
+
 *Population 60 - Rank distribution: 30%, 25%, 20%, 15%, 9%, 1%, - Average loop count 29 - execution time 32980
+
