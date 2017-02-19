@@ -6,10 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("\n\n\n\n\n\n");
-        int loopCount = 500;
 //        WorkingGA myWorkingGA = new WorkingGA(20, 1000, SelectionMethod.RankBased);
 //        System.out.println(myWorkingGA.getSolution() + " - " + myWorkingGA.getTotalGeneration());
-
+//        System.out.println("---------------");
+//        System.out.println(myWorkingGA.solveEquation(new double[]{2,3}));
+//        System.out.println(myWorkingGA.solveEquation(new double[]{3,2}));
+        int loopCount = 500;
         benchGA(loopCount, SelectionMethod.RouletteWheel);
         benchGA(loopCount, SelectionMethod.Tournament);
         benchGA(loopCount, SelectionMethod.RankBased);
