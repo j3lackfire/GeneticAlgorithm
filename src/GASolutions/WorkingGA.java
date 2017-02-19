@@ -21,6 +21,9 @@ public class WorkingGA {
     private double mutationChance = 0.05;
     private int generationCap; //maximum number of generation
     private double acceptableFitness = 0.999;
+
+    private double escapeDeltaFitness = 0.001;
+
     public int populationCount = 20;
 
     public int binaryLength = 10;
@@ -36,39 +39,39 @@ public class WorkingGA {
     public WorkingGA(int _populationCount, int _generationCap, SelectionMethod _selectionMethod) {
         populationCount = _populationCount;
         generationCap = _generationCap;
-        binaryFactory = new BinaryFactory(binaryLength, 0, 6);
-
+        binaryFactory = new BinaryFactory(binaryLength, -6, 6);
+        double previousFitness;
         //a new solution is created with all the values settle
         GASolution[] initialSolution = generateNewRandomSolution();
         //set the global solution to be the best solution in this generation
         //use copy function to make sure it's return a NEW object, not a reference of the solution,
         //which cause a lot of bug later on :/
         globalSolution = getBestSolution(initialSolution).copySolution();
+        previousFitness = getSolutionAverageFitness(initialSolution);
 
-        //if this is not the global optimum (of course it shouldn't be)
-        if (globalSolution.getFitness() < acceptableFitness) {
-            //create the first iteration from the initial generation
-            GASolution[] nextGeneration = generateMatingPool(initialSolution, _selectionMethod);
-            for (int i = 0; i < generationCap; i ++) {
-                //do cross over
-                nextGeneration = doCrossover(nextGeneration);
-                //do mutation
-                nextGeneration = doMutation(nextGeneration);
-                //by now, we have a new set of solution, let's find its best
-                GASolution localSolution = getBestSolution(nextGeneration);
-                if (globalSolution.getFitness() < localSolution.getFitness()) {
-                    globalSolution = localSolution.copySolution();
-                }
-                if (globalSolution.getFitness() > acceptableFitness) {
-                    totalGeneration = (long)i;
-                    break;
-                }
-                //if the solution isn't the optimal solution, create the mating pool again
-                prepareSolution(nextGeneration);
-                nextGeneration = generateMatingPool(nextGeneration, SelectionMethod.RouletteWheel);
+        //create the first iteration from the initial generation
+        GASolution[] nextGeneration = generateMatingPool(initialSolution, _selectionMethod);
+        for (int i = 0; i < generationCap; i ++) {
+            //do cross over
+            nextGeneration = doCrossover(nextGeneration);
+            //do mutation
+            nextGeneration = doMutation(nextGeneration);
+            //by now, we have a new set of solution, let's find its best
+            GASolution localSolution = getBestSolution(nextGeneration);
+            if (globalSolution.getFitness() < localSolution.getFitness()) {
+                globalSolution = localSolution.copySolution();
             }
-            totalGeneration ++;
+            if (Math.abs(getSolutionAverageFitness(nextGeneration) - previousFitness) < escapeDeltaFitness) {
+                totalGeneration = (long)i;
+                break;
+            } else {
+                previousFitness = getSolutionAverageFitness(nextGeneration);
+            }
+            //if the solution isn't the optimal solution, create the mating pool again
+            prepareSolution(nextGeneration);
+            nextGeneration = generateMatingPool(nextGeneration, SelectionMethod.RouletteWheel);
         }
+        totalGeneration ++;
         if (totalGeneration == generationCap - 1) {
             System.out.println("Generation cap reached" + globalSolution.getFitness());
         }
@@ -102,7 +105,7 @@ public class WorkingGA {
     }
 
     private void prepareSolution(GASolution[] _solution) {
-        averageFitness = getPopulationAverageFitness(_solution);
+        averageFitness = getSolutionAverageFitness(_solution);
         double currentC = 0;
         for (int i = 0; i < populationCount; i ++) {
             _solution[i].matingPoolCount = 0;
@@ -162,7 +165,7 @@ public class WorkingGA {
         return returnString;
     }
 
-    private double getPopulationAverageFitness(GASolution[] _solutions) {
+    private double getSolutionAverageFitness(GASolution[] _solutions) {
         double fitness = 0;
         for (int i = 0; i < _solutions.length; i ++) {
             fitness += _solutions[i].getFitness();
@@ -176,6 +179,17 @@ public class WorkingGA {
 
     //solve: f(x1, x2) = (x_1^2 + x_2 - 11)^2 + (x_1 + x_2^2 - 7)^2
     public double solveEquation(double[] values) {
+        //Another:
+        //y = 3*x1^2 - 2*x1*x2 + 3*x2^2 - x1 - x2
+//        MultipleVariablesEquation f_2 = new MultipleVariablesEquation();
+//        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(1,2)));
+//        f_2.addMiniEquation(new MiniEquation(-2,
+//                new EquationVariable[]{new EquationVariable(1,1), new EquationVariable(2,1)}));
+//        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(2,2)));
+//        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(1,1)));
+//        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(2,1)));
+//        return f_2.calculate(values);
+
         //y = f(x1, x2) = 4*x1^2 + 3*x2^2 - 6*x1*x2 - 4&x1, -10.0 <= x1, x2 <= 10.0
 
         //f_1 = (x_1^2 + x_2 - 11)
