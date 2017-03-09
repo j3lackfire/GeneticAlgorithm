@@ -1,20 +1,42 @@
+import Equations.MultipleVariablesEquation;
+import ParticleSwarm.WorkingSwarm;
 import Selections.RankBased;
 import Selections.SelectionMethod;
 import GASolutions.WorkingGA;
+import SimulatedAnnealing.SASolution;
+import SimulatedAnnealing.WorkingSA;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("\n\n\n\n\n\n");
-//        WorkingGA myWorkingGA = new WorkingGA(20, 1000, SelectionMethod.RankBased);
-//        System.out.println(myWorkingGA.getSolution() + " - " + myWorkingGA.getTotalGeneration());
-//        System.out.println("---------------");
-//        System.out.println(myWorkingGA.solveEquation(new double[]{2,3}));
-//        System.out.println(myWorkingGA.solveEquation(new double[]{3,2}));
-        int loopCount = 500;
-        benchGA(loopCount, SelectionMethod.RouletteWheel);
-        benchGA(loopCount, SelectionMethod.Tournament);
-        benchGA(loopCount, SelectionMethod.RankBased);
+        WorkingSwarm myWorkingSwarm = new WorkingSwarm();
+
+//        WorkingGA myWorkingGA = new WorkingGA(40, 1000, SelectionMethod.RankBased);
+//        System.out.println(myWorkingGA.getSolution());
+
+//        int loopCount = 100;
+//        benchGA(loopCount, SelectionMethod.RouletteWheel);
+//        benchGA(loopCount, SelectionMethod.Tournament);
+//        benchGA(loopCount, SelectionMethod.RankBased);
+
+//        benchSA(50);
+
+    }
+
+    public static void benchSA(int loopCount) {
+        long startTime = System.currentTimeMillis();
+        SASolution finalSolution = null;
+        double lowestFitness = 9999;
+        for (int i = 0; i < loopCount; i ++) {
+            WorkingSA myWorkingSA = new WorkingSA();
+            SASolution mySolution = myWorkingSA.getSolution();
+            if (mySolution.getFitness() < lowestFitness) {
+                lowestFitness = mySolution.getFitness();
+                finalSolution = mySolution;
+            }
+        }
+        System.out.println("Final solution " + finalSolution.toString() + " - execution time " + (System.currentTimeMillis() - startTime));
+
     }
 
     public static void benchGA(int loopCount, SelectionMethod method) {

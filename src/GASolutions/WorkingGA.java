@@ -22,7 +22,7 @@ public class WorkingGA {
     private int generationCap; //maximum number of generation
     private double acceptableFitness = 0.999;
 
-    private double escapeDeltaFitness = 0.001;
+    private double escapeDeltaFitness = 0.0001;
 
     public int populationCount = 20;
 
@@ -181,33 +181,33 @@ public class WorkingGA {
     public double solveEquation(double[] values) {
         //Another:
         //y = 3*x1^2 - 2*x1*x2 + 3*x2^2 - x1 - x2
-//        MultipleVariablesEquation f_2 = new MultipleVariablesEquation();
-//        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(1,2)));
-//        f_2.addMiniEquation(new MiniEquation(-2,
-//                new EquationVariable[]{new EquationVariable(1,1), new EquationVariable(2,1)}));
-//        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(2,2)));
-//        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(1,1)));
-//        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(2,1)));
-//        return f_2.calculate(values);
+        MultipleVariablesEquation f_2 = new MultipleVariablesEquation();
+        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(1,2)));
+        f_2.addMiniEquation(new MiniEquation(-2,
+                new EquationVariable[]{new EquationVariable(1,1), new EquationVariable(2,1)}));
+        f_2.addMiniEquation(new MiniEquation(3, new EquationVariable(2,2)));
+        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(1,1)));
+        f_2.addMiniEquation(new MiniEquation(-1, new EquationVariable(2,1)));
+        return f_2.calculate(values);
 
         //y = f(x1, x2) = 4*x1^2 + 3*x2^2 - 6*x1*x2 - 4&x1, -10.0 <= x1, x2 <= 10.0
 
         //f_1 = (x_1^2 + x_2 - 11)
-        MultipleVariablesEquation f_1 = new MultipleVariablesEquation();
-        f_1.addMiniEquation(new MiniEquation(1, new EquationVariable(1,2)));
-        f_1.addMiniEquation(new MiniEquation(1, new EquationVariable(2)));
-        f_1.addMiniEquation(new MiniEquation(-11, new EquationVariable(1,0)));
-
-        //f_2 = (x_1 + x_2^2 - 7)
-        MultipleVariablesEquation f_2 = new MultipleVariablesEquation();
-        f_2.addMiniEquation(new MiniEquation(1, new EquationVariable(1)));
-        f_2.addMiniEquation(new MiniEquation(1, new EquationVariable(2,2)));
-        f_2.addMiniEquation(new MiniEquation(-7, new EquationVariable(1,0)));
-
-        double f_1_result = f_1.calculate(values);
-        double f_2_result = f_2.calculate(values);
-
-        double finalResult = f_1_result * f_1_result + f_2_result * f_2_result;
-        return finalResult;
+//        MultipleVariablesEquation f_1 = new MultipleVariablesEquation();
+//        f_1.addMiniEquation(new MiniEquation(1, new EquationVariable(1,2)));
+//        f_1.addMiniEquation(new MiniEquation(1, new EquationVariable(2)));
+//        f_1.addMiniEquation(new MiniEquation(-11, new EquationVariable(1,0)));
+//
+//        //f_2 = (x_1 + x_2^2 - 7)
+//        MultipleVariablesEquation f_2 = new MultipleVariablesEquation();
+//        f_2.addMiniEquation(new MiniEquation(1, new EquationVariable(1)));
+//        f_2.addMiniEquation(new MiniEquation(1, new EquationVariable(2,2)));
+//        f_2.addMiniEquation(new MiniEquation(-7, new EquationVariable(1,0)));
+//
+//        double f_1_result = f_1.calculate(values);
+//        double f_2_result = f_2.calculate(values);
+//
+//        double finalResult = f_1_result * f_1_result + f_2_result * f_2_result;
+//        return finalResult;
     }
 }
